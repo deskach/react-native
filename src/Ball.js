@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from "react-native";
+import { Animated, View } from "react-native";
 
 class Ball extends Component {
   static styles = {
@@ -12,9 +12,17 @@ class Ball extends Component {
     }
   };
 
+  position = new Animated.ValueXY(0, 0);
+
+  componentWillMount() {
+    Animated.spring(this.position, { toValue: { x: 200, y: 400 }, }).start();
+  }
+
   render() {
     return (
-      <View style={Ball.styles.ball}></View>
+      <Animated.View style={this.position.getLayout()}>
+        <View style={Ball.styles.ball}></View>
+      </Animated.View>
     );
   }
 }

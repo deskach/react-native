@@ -4,11 +4,15 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "rc-start": "npm start -- --reset-cache",
     "test": "jest"
   },
   "dependencies": {
+    "prop-types": "^15.6.0",
     "react": "16.0.0",
-    "react-native": "0.50.3"
+    "react-native": "0.50.3",
+    "react-native-elements": "^0.18.2",
+    "react-native-vector-icons": "^4.4.2"
   },
   "devDependencies": {
     "babel-jest": "21.2.0",

@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import Deck from "./src/Deck";
 import { DECK } from './src/constants';
-import { Card } from 'react-native-elements';
+import { Button, Card } from 'react-native-elements';
 import { uniqueId } from "./src/utils";
 
 const instructions = Platform.select({
@@ -20,8 +20,15 @@ const instructions = Platform.select({
 
 export default class App extends Component<{}> {
   renderCard(item) {
+    const style = {
+      text: { marginBottom: 10 }
+    };
+
     return (
-      <Card key={uniqueId()}></Card>
+      <Card key={uniqueId()} title={item.text} image={{ uri: item.uri }}>
+        <Text style={style.text}>Some text</Text>
+        <Button title={'View'} icon={{ name: 'code' }} backgroundColor={'#03a9f4'}/>
+      </Card>
     );
   }
 

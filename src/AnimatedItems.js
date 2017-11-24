@@ -6,21 +6,15 @@ import PropTypes from 'prop-types';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = SCREEN_WIDTH / 2;
 const SWIPE_OUT_SPEED = 250;
-const RIGHT = 1;
-const LEFT = -1;
+export const RIGHT = 1;
+export const LEFT = -1;
 
 export const defaultStrategy = {
   panHandlers: {
     onPanResponderMove: (position, gesture) => {
       position.setValue({ x: gesture.dx, y: gesture.dy });
     },
-    onPanResponderRelease: (position,
-                            gesture,
-                            { onSwipeLeft, onSwipeRight, children }) => {
-      const onSwipeComplete = (direction) => {
-        (direction === RIGHT) ? onSwipeRight(children) : onSwipeLeft(children);
-      };
-
+    onPanResponderRelease: (position, gesture, { onSwipeComplete }) => {
       if (gesture.dx > SWIPE_THRESHOLD) {
         Animated.timing(position, {
           toValue: { x: SCREEN_WIDTH, y: 0 },
@@ -66,13 +60,11 @@ export const slideStrategy = {
 export class AnimatedItems extends Component {
   static propTypes = {
     strategy: PropTypes.any,
-    onSwipeLeft: PropTypes.func,
-    onSwipeRight: PropTypes.func,
+    onSwipeComplete: PropTypes.func,
   };
   static defaultProps = {
     strategy: defaultStrategy,
-    onSwipeLeft: _ => _,
-    onSwipeRight: _ => _,
+    onSwipeComplete: _ => _,
   };
   static STRATEGY = {
     ROTATE: rotateStrategy,

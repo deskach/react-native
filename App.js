@@ -36,8 +36,8 @@ export default class App extends Component<{}> {
     return (
       <View style={styles.container}>
         <Deck data={DECK.DATA} renderCard={value => this.renderCard(value)}
-              onSwipeRight={item => console.log(item.key)}
-              onSwipeLeft={item => console.log(item.key)}/>
+              onSwipeRight={i => console.log(i)}
+              onSwipeLeft={i => console.log(i)}/>
         <Text style={styles.welcome}>
           Welcome to React Native!
         </Text>

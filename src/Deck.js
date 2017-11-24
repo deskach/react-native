@@ -17,24 +17,24 @@ class Deck extends Component {
   };
 
   state = {
-    activeCard: 0,
+    activeCardIndex: 0,
   };
 
   onSwipeComplete(direction) {
     const { onSwipeLeft, onSwipeRight, data } = this.props;
-    const card = data[this.state.activeCard];
+    const card = data[this.state.activeCardIndex];
 
     (direction === RIGHT) ? onSwipeRight(card) : onSwipeLeft(card);
-    this.setState({ activeCard: this.state.activeCard + 1 });
+    this.setState({ activeCardIndex: this.state.activeCardIndex + 1 });
   }
 
   renderCards() {
     const { onSwipeLeft, onSwipeRight } = this.props;
 
     return this.props.data.map((c, i) => {
-      if (i < this.state.activeCard) {
+      if (i < this.state.activeCardIndex) {
         return null;
-      } else if (i === this.state.activeCard) {
+      } else if (i === this.state.activeCardIndex) {
         return (
           <AnimatedItems key={i} strategy={AnimatedItems.STRATEGY.ROTATE}
                          onSwipeRight={onSwipeRight}

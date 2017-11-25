@@ -32,10 +32,26 @@ export default class App extends Component<{}> {
     );
   }
 
+  renderEmptyDeck() {
+    return (
+      <View>
+        <Text style={styles.instructions}>
+          We are done!
+        </Text>
+        <Button title={'Reset'}
+                icon={{ name: 'code' }}
+                backgroundColor={'#03a9f4'}
+                onPress={this.render}/>
+      </View>
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Deck data={DECK.DATA} renderCard={value => this.renderCard(value)}
+        <Deck data={DECK.DATA}
+              renderCard={this.renderCard}
+              renderEmptyDeck={this.renderEmptyDeck}
               onSwipeRight={i => console.log(i)}
               onSwipeLeft={i => console.log(i)}/>
         <Text style={styles.welcome}>

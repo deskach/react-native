@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from "react-native";
-import { AnimatedItems, RIGHT } from "./AnimatedItems";
+import { Card, RIGHT } from "./Card";
 
 class Deck extends Component {
   static propTypes = {
@@ -40,12 +40,12 @@ class Deck extends Component {
       return data.map((c, i) => {
         return (
           <View style={styles.card} key={i}>
-            <AnimatedItems strategy={AnimatedItems.STRATEGY.ROTATE}
-                           onSwipeRight={onSwipeRight}
-                           onSwipeComplete={(...args) => this.onSwipeComplete(...args)}
-                           onSwipeLeft={onSwipeLeft}>
+            <Card strategy={Card.STRATEGY.ROTATE}
+                  onSwipeRight={onSwipeRight}
+                  onSwipeComplete={(...args) => this.onSwipeComplete(...args)}
+                  onSwipeLeft={onSwipeLeft}>
               {this.props.renderCard(c)}
-            </AnimatedItems>
+            </Card>
           </View>
         );
       }).reverse();

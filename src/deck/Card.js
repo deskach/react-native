@@ -57,7 +57,7 @@ export const slideStrategy = {
   }
 };
 
-export class AnimatedItems extends Component {
+export class Card extends Component {
   static propTypes = {
     strategy: PropTypes.any,
     onSwipeComplete: PropTypes.func,

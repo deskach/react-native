@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import Deck from "./src/Deck";
+import Deck from "./src/deck/Deck";
 import { DECK } from './src/constants';
 import { Button, Card } from 'react-native-elements';
 import { uniqueId } from "./src/utils";

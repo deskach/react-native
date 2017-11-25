@@ -47,6 +47,7 @@ export default class App extends Component<{}> {
       <View style={styles.container}>
         <View style={styles.container2}>
           <Deck data={DECK.DATA}
+                strategy={Deck.STRATEGY.ROTATE}
                 renderCard={this.renderCard}
                 renderEmptyDeck={this.renderEmptyDeck}
                 onSwipeRight={i => console.log('on swipe right')}

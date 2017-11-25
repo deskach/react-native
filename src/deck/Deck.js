@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from "react-native";
-import { Card, RIGHT } from "./Card";
+import { Card } from "./Card";
+import { defaultStrategy, rotateStrategy, slideStrategy } from "./strategies";
+import { RIGHT } from "./constants";
 
 class Deck extends Component {
   static propTypes = {
     data: PropTypes.array,
+    strategy: PropTypes.any,
     renderCard: PropTypes.func.isRequired,
     renderEmptyDeck: PropTypes.func.isRequired,
     onSwipeLeft: PropTypes.func,
@@ -13,8 +15,14 @@ class Deck extends Component {
   };
   static defaultProps = {
     data: [], renderCard: _ => _,
+    strategy: defaultStrategy,
     onSwipeLeft: _ => _,
     onSwipeRight: _ => _,
+  };
+  static STRATEGY = {
+    ROTATE: rotateStrategy,
+    SLIDE: slideStrategy,
+    DEFAULT: defaultStrategy,
   };
 
   state = {
@@ -31,7 +39,7 @@ class Deck extends Component {
   }
 
   render() {
-    const { onSwipeLeft, onSwipeRight, data } = this.props;
+    const { onSwipeLeft, onSwipeRight, data, strategy } = this.props;
     const { activeCardIndex } = this.state;
 
     if (activeCardIndex >= data.length) {
@@ -39,26 +47,18 @@ class Deck extends Component {
     } else {
       return data.map((c, i) => {
         return (
-          <View style={styles.card} key={i}>
-            <Card strategy={Card.STRATEGY.ROTATE}
-                  onSwipeRight={onSwipeRight}
-                  onSwipeComplete={(...args) => this.onSwipeComplete(...args)}
-                  onSwipeLeft={onSwipeLeft}>
-              {this.props.renderCard(c)}
-            </Card>
-          </View>
+          <Card strategy={strategy}
+                key={i}
+                onSwipeRight={onSwipeRight}
+                onSwipeComplete={(...args) => this.onSwipeComplete(...args)}
+                onSwipeLeft={onSwipeLeft}>
+            {this.props.renderCard(c)}
+          </Card>
         );
       }).reverse();
     }
   }
 }
 
-
-const styles = {
-  card: {
-    position: 'absolute',
-    width: '100%',
-  },
-};
 
 export default Deck;

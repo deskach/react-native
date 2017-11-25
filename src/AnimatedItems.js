@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = SCREEN_WIDTH / 2;
 const SWIPE_OUT_SPEED = 250;
-export const RIGHT = 1;
-export const LEFT = -1;
+export const RIGHT = 'right';
+export const LEFT = 'left';
 
 export const defaultStrategy = {
   panHandlers: {

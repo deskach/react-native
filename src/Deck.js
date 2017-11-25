@@ -23,45 +23,42 @@ class Deck extends Component {
 
   onSwipeComplete(direction) {
     const { onSwipeLeft, onSwipeRight, data } = this.props;
-    const card = data[this.state.activeCardIndex];
+    const { activeCardIndex } = this.state;
+    const card = data[activeCardIndex];
 
     (direction === RIGHT) ? onSwipeRight(card) : onSwipeLeft(card);
-    this.setState({ activeCardIndex: this.state.activeCardIndex + 1 });
-  }
-
-  renderCards() {
-    const { onSwipeLeft, onSwipeRight } = this.props;
-
-    if (this.state.activeCardIndex >= this.props.data.length) {
-      return this.props.renderEmptyDeck();
-    }
-
-    return this.props.data.map((c, i) => {
-      if (i < this.state.activeCardIndex) {
-        return null;
-      } else if (i === this.state.activeCardIndex) {
-        return (
-          <AnimatedItems key={i} strategy={AnimatedItems.STRATEGY.ROTATE}
-                         onSwipeRight={onSwipeRight}
-                         onSwipeComplete={_ => this.onSwipeComplete()}
-                         onSwipeLeft={onSwipeLeft}>
-            {this.props.renderCard(c)}
-          </AnimatedItems>
-        );
-      }
-
-      return this.props.renderCard(c);
-    });
+    this.setState({ activeCardIndex: activeCardIndex + 1 });
   }
 
   render() {
-    return (
-      <View>
-        {this.renderCards()}
-      </View>
-    );
+    const { onSwipeLeft, onSwipeRight, data } = this.props;
+    const { activeCardIndex } = this.state;
+
+    if (activeCardIndex >= data.length) {
+      return this.props.renderEmptyDeck();
+    } else {
+      return data.map((c, i) => {
+        return (
+          <View style={styles.card} key={i}>
+            <AnimatedItems strategy={AnimatedItems.STRATEGY.ROTATE}
+                           onSwipeRight={onSwipeRight}
+                           onSwipeComplete={(...args) => this.onSwipeComplete(...args)}
+                           onSwipeLeft={onSwipeLeft}>
+              {this.props.renderCard(c)}
+            </AnimatedItems>
+          </View>
+        );
+      }).reverse();
+    }
   }
 }
 
+
+const styles = {
+  card: {
+    position: 'absolute',
+    width: '100%',
+  },
+};
 
 export default Deck;
